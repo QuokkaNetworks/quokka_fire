@@ -1,16 +1,11 @@
 Config = {}
 
--- Legacy compatibility alias used by some scripts.
-Config.ambulanceJobs = { 'fire' }
-Config.fireJobs = Config.ambulanceJobs
-
 Config.FireJob = {
     jobs = { 'fire' },
     interactKey = 38, -- E
     vehiclePlatePrefix = 'FIRE',
     allowStoreAnyVehicle = false,
     garageBlockRadius = 4.0, -- Spawn blocking radius for fire garage
-    remapAmbulanceJobLock = false,
     pedSpawnDistance = 35.0, -- Distance to spawn optional configured peds
     pedDespawnDistance = 40.0, -- Distance to despawn optional configured peds
     defaultPedScenario = 'WORLD_HUMAN_CLIPBOARD',

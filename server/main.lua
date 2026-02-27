@@ -17,10 +17,6 @@ local function getAllowedJobs()
         return fireConfig.jobs
     end
 
-    if type(Config.ambulanceJobs) == 'table' and next(Config.ambulanceJobs) ~= nil then
-        return Config.ambulanceJobs
-    end
-
     return { 'fire' }
 end
 
@@ -29,29 +25,17 @@ local function isConfiguredJob(jobName)
     return tableContains(getAllowedJobs(), jobName)
 end
 
-local function normalizeLegacyJobLock(lockValue, jobName)
-    if lockValue ~= 'ambulance' then return false end
-    if not fireConfig.remapAmbulanceJobLock then return false end
-    return isConfiguredJob(jobName)
-end
-
 local function canUseLock(jobLock, jobName)
     if jobLock == nil or jobLock == false then
         return true
     end
 
     if type(jobLock) == 'string' then
-        return jobLock == jobName or normalizeLegacyJobLock(jobLock, jobName)
+        return jobLock == jobName
     end
 
     if type(jobLock) == 'table' then
-        if tableContains(jobLock, jobName) then
-            return true
-        end
-
-        if fireConfig.remapAmbulanceJobLock and tableContains(jobLock, 'ambulance') then
-            return isConfiguredJob(jobName)
-        end
+        return tableContains(jobLock, jobName)
     end
 
     return false
